@@ -1,0 +1,23 @@
+
+<form [formGroup]="createAuthorFrom" class="p-3 border rounded m-auto" (ngSubmit)="add()">
+  <h1 mat-dialog-title>Add author form</h1>
+  
+  <div class="form-group mb-3">
+    <label for="basic-url" class="form-label">Full Name</label>
+    <input type="text" class="form-control" placeholder="Full Name" formControlName="fullName">
+  </div>
+
+  <div class="form-group mb-3">
+    <label for="basic-url" class="form-label">Pseudonym</label>
+    <input type="text" class="form-control" placeholder="Pseudonym" formControlName="pseudonym">
+  </div>
+
+  <div class="form-group mb-3">
+    <label for="basic-url" class="form-label">Photo URL</label>
+    <input type="text" class="form-control" placeholder="Url" formControlName="photo">
+  </div>
+  
+  <button type="submit" [disabled]="createAuthorFrom.invalid" class="btn btn-success">
+    Add
+  </button>
+</form>

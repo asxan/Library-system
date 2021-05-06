@@ -1,0 +1,48 @@
+import { Component, OnInit } from '@angular/core';
+import { BooksService } from '../services/books.service'
+import Book from '../models/book'
+import Genre from '../models/genre'
+import { ActivatedRoute } from '@angular/router';
+
+@Component({
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.css']
+})
+export class SearchComponent implements OnInit {
+
+  books: Array<Book> = [];
+  genres: Array<Genre> = [];
+
+  constructor(private booksService: BooksService, private activeRoute: ActivatedRoute) { }
+
+  ngOnInit(): void {
+    this.activeRoute.queryParams.subscribe(
+      (params) => this.getBooks(params)
+    );
+    this.getGenres()
+  }
+
+  getBooks(params?: any) {
+    this.booksService.getBooks(params).subscribe(
+      (data) => {
+        this.books = data;
+      },
+      (error) => {
+        console.log("Error: ", error);
+      }
+    );
+  }
+
+  getGenres() {
+    this.booksService.getGenres().subscribe(
+      (data) => {
+        this.genres = data;
+      },
+      (error) => {
+        console.log("Error: ", error);
+      }
+    );
+  }
+}
+

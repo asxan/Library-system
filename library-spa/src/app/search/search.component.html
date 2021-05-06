@@ -1,0 +1,23 @@
+<form class="d-flex mb-2">
+  <input class="form-control mr-3" type="search" placeholder="Book title or author" aria-label="Search">
+  <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+<div class="row">
+  <div class="col-4">
+    <ul class="list-group">
+      <li class="list-group-item p-2 bg-light" >
+          Genres:
+      </li> 
+      <li class="list-group-item p-0" *ngFor="let genre of genres">
+        <a class="nav-link" [routerLink]="['/search']" routerLinkActive="router-link-active" class="p-2 w-100 d-block" [queryParams]="{genre:genre._id}">
+          {{genre.name}}
+        </a>
+      </li>     
+    </ul>
+  </div>
+  <div class="col p-0">
+    <div *ngFor='let book of books'>
+      <app-book-item [book]='book'></app-book-item>
+    </div>   
+  </div>
+</div>

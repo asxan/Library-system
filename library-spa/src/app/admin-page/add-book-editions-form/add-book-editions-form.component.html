@@ -1,0 +1,44 @@
+<form [formGroup]="bookEditionsForm" class="p-3 border rounded m-auto" (ngSubmit)="add()">
+    <h1 mat-dialog-title>Add book edition form</h1>
+
+    <div class="form-group mb-3">
+        <label for="basic-url" class="form-label">Book</label>
+        <mat-form-field class="d-block" appearance="fill">
+            <mat-label>Book</mat-label>
+            <mat-select formControlName="bookId" class="h-100">
+                <mat-option *ngFor="let book of books" [value]="book._id">{{book.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="basic-url" class="form-label">Pablished Year</label>
+        <input type="number" class="form-control" placeholder="Pablished Year" formControlName="pablishedYear">
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="basic-url" class="form-label">Language</label>
+        <input type="text" class="form-control" placeholder="Language" formControlName="language">
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="basic-url" class="form-label">Cover</label>
+        <input type="text" class="form-control" placeholder="Cover" formControlName="cover">
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="basic-url" class="form-label">Printed Type</label>
+        <input type="text" class="form-control" placeholder="Printed Type" formControlName="printedType">
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="basic-url" class="form-label">Pages</label>
+        <input type="text" class="form-control" placeholder="Pages" formControlName="pages">
+    </div>
+
+
+    <button type="submit" [disabled]="bookEditionsForm.invalid" class="btn btn-success">
+        Add
+    </button>
+</form>

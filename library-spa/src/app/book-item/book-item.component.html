@@ -1,0 +1,13 @@
+<div class="row mt-0 mb-2 ml-2 border pl-0 rounded">
+  <div class="col-3 p-0">
+    <img *ngIf="book.photo" src="{{book.photo}}" class="img-thumbnail" alt="">
+    <img *ngIf="!book.photo" src="../../assets/book_placeholder.png" class="img-thumbnail" alt="">
+  </div>
+  <div class="col">
+    <div class="h5">{{book.name}}</div>
+    <div class="text-secondary small">Publishing house: {{book.publishingHouse}} Publication year:
+      {{book.publicationYear}}</div>
+    <div class="small">Description: {{book.description}}</div><br>
+    <button mat-raised-button color="primary" [routerLink]="['/search/', book._id]"  >Details</button>
+  </div>
+</div>
