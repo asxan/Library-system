@@ -26,14 +26,18 @@ import { MatSelectModule } from '@angular/material/select';
 import { AddBookEditionsFormComponent } from './admin-page/add-book-editions-form/add-book-editions-form.component';
 import { BookPageComponent } from './book-page/book-page.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-
+import { LogComponent } from './log/log.component';
+import { UserPageComponent } from './user-page/user-page.component';
 
 const appRoute: Routes = [
   { path: '', component: HomeComponent },
   { path: 'search', component: SearchComponent },
   { path: 'search/:id', component: BookPageComponent },
   { path: 'reg', component: RegComponent },
+  { path: 'login', component: LogComponent },
+  { path: 'user', component: UserPageComponent },
   {
     path: 'admintool',
     component: AdminPageComponent,
@@ -67,7 +71,9 @@ const appRoute: Routes = [
     AdminPageComponent,
     AddBookFormComponent,
     AddBookEditionsFormComponent,
-    BookPageComponent
+    BookPageComponent,
+    LogComponent,
+    UserPageComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +87,8 @@ const appRoute: Routes = [
     MatDialogModule,
     MatSelectModule,
     MatFormFieldModule,
-    MatIconModule
+    MatIconModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

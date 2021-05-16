@@ -1,19 +1,11 @@
-<form [formGroup]="RegForm" class="p-3 border rounded m-auto6 col-12 col-lg-6" (submit)="userRegisterClick()">
-  <h1 mat-dialog-title>Registration</h1>
-
-  <div class="form-group mb-3">
-    <mat-form-field class="d-block" appearance="fill">
-      <mat-label>Username</mat-label>
-      <input matInput placeholder="Your name" formControlName="username" required>
-      <mat-error *ngIf="RegForm.controls.username.invalid">Username is not set or has wrong format</mat-error>
-    </mat-form-field>
-  </div>
+<form [formGroup]="LogForm" class="p-3 border rounded m-auto6 col-12 col-lg-6" (submit)="userLoginClick()">
+  <h1 mat-dialog-title>Login</h1>
 
   <div class="form-group mb-3">
     <mat-form-field class="d-block" appearance="fill">
       <mat-label>Enter your email</mat-label>
       <input matInput placeholder="pat@example.com" formControlName="email" required>
-      <mat-error *ngIf="RegForm.controls.email.invalid">Email is not set or has wrong format</mat-error>
+      <mat-error *ngIf="LogForm.controls.email.invalid">Email is not set or has wrong format</mat-error>
     </mat-form-field>
   </div>
 
@@ -28,4 +20,4 @@
     </mat-form-field>
   </div>
 
-  <button class="btn btn-success" [disabled]="RegForm.invalid" type="submit">Register</button>
+  <button class="btn btn-success" [disabled]="LogForm.invalid" type="submit">Login</button>

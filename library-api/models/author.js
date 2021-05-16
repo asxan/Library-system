@@ -11,6 +11,6 @@ let schema = new Schema(
     photo: String
   }
 )
-const authorsModel = model('authors', schema, 'authors');
+const authorModel = model('authors', schema, 'authors');
 
-export default authorsModel
+export default authorModel

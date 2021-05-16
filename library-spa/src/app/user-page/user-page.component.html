@@ -1,0 +1,10 @@
+<div class="h5 mt-3"> Orders: </div>
+<ul>
+  <li *ngFor="let order of orders" class="row">
+    <div class="col">Book: {{order.book.name}}</div>
+    <div class="col">Language: {{order.edition.language}}</div>
+    <div class="col">Print year: {{order.edition.pablishedYear}}</div>
+    <div class="col">Order date: {{order.orderDate}}</div>
+    <div class="col">Return date: {{order.returnDate}}</div>
+  </li>
+</ul>

@@ -1,13 +1,15 @@
 import express from 'express'
 import mongoose from 'mongoose'
-import routes from './routes/main.js'
+import booksRouter from './routers/booksRouters.js'
+import usersRouter from './routers/usersRouters.js'
 import cors from 'cors'
 
 const PORT = process.env.PORT || 3000
 const app = express()
 
 app.use(cors());
-app.use(routes);
+app.use(booksRouter);
+app.use(usersRouter);
 
 async function start() {
   try {

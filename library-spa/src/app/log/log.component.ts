@@ -4,32 +4,35 @@ import { BooksService } from '.././services/books.service';
 import { MatDialog } from '@angular/material/dialog';
 import user from 'src/app/models/user';
 import { ServerErrorDialogComponent } from '../dialogs/server-error-dialog/server-error-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-reg',
-  templateUrl: './reg.component.html',
-  styleUrls: ['./reg.component.css']
+  selector: 'app-log',
+  templateUrl: './log.component.html',
+  styleUrls: ['./log.component.css']
 })
-export class RegComponent implements OnInit {
+export class LogComponent implements OnInit {
 
-  RegForm = new FormGroup({
-    username: new FormControl('', Validators.required),
+  LogForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required),
   })
 
   hide = true;
 
-  constructor(private booksService: BooksService, public dialog: MatDialog) { }
+  constructor(private booksService: BooksService, public dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  userRegisterClick(): void {
-    let user = this.RegForm.value as user;
-    this.booksService.register(user).subscribe(
-      (res) => this.RegForm.reset(),
+  userLoginClick(): void {
+    let user = this.LogForm.value as user;
+    this.booksService.login(user).subscribe(
+      (res) => {
+        this.router.navigate(['/']);
+      },
       (error) => this.dialog.open(ServerErrorDialogComponent, { data: error.error })
     )
   }
+
 }

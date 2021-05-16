@@ -11,10 +11,20 @@ let schema = new Schema(
     publicationYear: Number,
     authors: [{type: ObjectId}],
     genres: [{type: ObjectId}],
+    booksEditions: [
+      {
+        _id: ObjectId,
+        bookId: ObjectId,
+        pablishedYear: Number,
+        language: String,
+        cover: String,
+        printedType: String,
+        pages: Number
+      }],
     description: String,
     photo: String
   })
 
-const booksModel = model('books', schema, 'books');
+const bookModel = model('books', schema, 'books');
 
-export default booksModel
+export default bookModel
