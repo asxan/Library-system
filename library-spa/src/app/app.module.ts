@@ -12,7 +12,7 @@ import { SearchComponent } from './search/search.component';
 import { BookItemComponent } from './book-item/book-item.component';
 
 import { RouterModule, Routes } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { MatButtonModule } from '@angular/material/button';
 import { AuthorAddFormComponent } from './admin-page/author-add-form/author-add-form.component';
@@ -28,16 +28,19 @@ import { BookPageComponent } from './book-page/book-page.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { LogComponent } from './log/log.component';
+import { LoginComponent } from './log/login.component';
 import { UserPageComponent } from './user-page/user-page.component';
+import { AuthGuard } from './helpers/auth.guard';
+import { JwtInterceptor } from './helpers/jwt.interceptor';
+import { ErrorInterceptor } from './helpers/http.interceptor';
 
 const appRoute: Routes = [
   { path: '', component: HomeComponent },
   { path: 'search', component: SearchComponent },
   { path: 'search/:id', component: BookPageComponent },
-  { path: 'reg', component: RegComponent },
-  { path: 'login', component: LogComponent },
-  { path: 'user', component: UserPageComponent },
+  { path: 'registration', component: RegComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'user', component: UserPageComponent, canActivate: [AuthGuard] },
   {
     path: 'admintool',
     component: AdminPageComponent,
@@ -72,7 +75,7 @@ const appRoute: Routes = [
     AddBookFormComponent,
     AddBookEditionsFormComponent,
     BookPageComponent,
-    LogComponent,
+    LoginComponent,
     UserPageComponent
   ],
   imports: [
@@ -90,7 +93,10 @@ const appRoute: Routes = [
     MatIconModule,
     MatInputModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

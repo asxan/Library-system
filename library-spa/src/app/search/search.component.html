@@ -1,23 +1,32 @@
-<form class="d-flex mb-2">
-  <input class="form-control mr-3" type="search" placeholder="Book title or author" aria-label="Search">
-  <button class="btn btn-outline-success" type="submit">Search</button>
-</form>
-<div class="row">
-  <div class="col-4">
-    <ul class="list-group">
-      <li class="list-group-item p-2 bg-light" >
+<div class="p-0 rounded m-auto col-12 col-lg-11 bg-light">
+  <form class="d-flex m-0 mb-2 p-0 font-smaller border-bottom">
+    <div class="input-group h-100">
+      <span class="input-group-text rounded-0" id="basic-addon1">
+        <mat-icon class="text-dark">search</mat-icon>
+      </span>
+      <input class="form-control m-0 rounded-0  border-0" type="search" focus
+        placeholder="Type book title or author name ..." aria-label="Search">
+    </div>
+    <button class="btn btn-success rounded-0 w-25" type="submit">Search</button>
+  </form>
+  <div class="row">
+    <div class="col-12 col-lg-3 m-2">
+      <ul class="list-group">
+        <li class="list-group-item p-2 bg-light">
           Genres:
-      </li> 
-      <li class="list-group-item p-0" *ngFor="let genre of genres">
-        <a class="nav-link" [routerLink]="['/search']" routerLinkActive="router-link-active" class="p-2 w-100 d-block" [queryParams]="{genre:genre._id}">
-          {{genre.name}}
-        </a>
-      </li>     
-    </ul>
-  </div>
-  <div class="col p-0">
-    <div *ngFor='let book of books'>
-      <app-book-item [book]='book'></app-book-item>
-    </div>   
+        </li>
+        <li class="list-group-item p-0" *ngFor="let genre of genres">
+          <a class="nav-link btn-outline-success" [routerLink]="['/search']" routerLinkActive="btn-success text-white"
+            [queryParams]="{genre:genre._id}">
+            {{genre.name}}
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="col p-0 m-2">
+      <div *ngFor='let book of books'>
+        <app-book-item [book]='book'></app-book-item>
+      </div>
+    </div>
   </div>
 </div>

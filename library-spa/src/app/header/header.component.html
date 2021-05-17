@@ -1,22 +1,37 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+<nav class="navbar navbar-expand-md navbar-dark bg-success  mb-4">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Library</a>
+    <a class="navbar-brand h1" href="#">
+      <mat-icon  style="vertical-align: middle;">auto_stories</mat-icon> 
+      <span style="vertical-align: middle;"> Library</span></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+    <div class="collapse navbar-collapse d-flex flex-row justify-" id="navbarCollapse">
+      <ul class="navbar-nav flex-fill">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" [routerLink]="['/']">Home</a>
+          <a class="nav-link" aria-current="page" [routerLink]="['/']"><mat-icon style="vertical-align: middle;">home</mat-icon>Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/search']">Search</a>
+          <a class="nav-link" [routerLink]="['/search']"><mat-icon style="vertical-align: middle;">search</mat-icon>Search</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav flex-end" *ngIf="!loggedIn()" >
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/registration']"><mat-icon style="vertical-align: middle;">person_add_alt</mat-icon>Register</a>
+        </li>
+        <li class="nav-item" >
+          <a class="nav-link" [routerLink]="['/login']"><mat-icon style="vertical-align: middle;">login</mat-icon>Login</a>
+        </li>
+      </ul>
+        
+      <ul class="navbar-nav" *ngIf="loggedIn()">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/user']">
+            <mat-icon  style="vertical-align: middle;">person</mat-icon> Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/reg']">Register</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/login']">Login</a>
+          <a class="nav-link btn" (click)="logout()"><mat-icon style="vertical-align: middle;">logout</mat-icon>Logout</a>
         </li>
       </ul>
     </div>

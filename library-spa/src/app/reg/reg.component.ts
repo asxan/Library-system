@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { AuthService } from './../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BooksService } from '.././services/books.service';
@@ -20,15 +22,23 @@ export class RegComponent implements OnInit {
 
   hide = true;
 
-  constructor(private booksService: BooksService, public dialog: MatDialog) { }
+  constructor(
+    private authService: AuthService,
+    public dialog: MatDialog,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
   }
 
   userRegisterClick(): void {
     let user = this.RegForm.value as user;
-    this.booksService.register(user).subscribe(
-      (res) => this.RegForm.reset(),
+    this.authService.register(user).subscribe(
+      (res) => {
+        this.authService.currentUser = res.user;
+        localStorage.setItem('token', res.token)
+        this.router.navigate(['/']);
+      },
       (error) => this.dialog.open(ServerErrorDialogComponent, { data: error.error })
     )
   }

@@ -40,13 +40,5 @@ export class BooksService {
   addBookEdition(bookEdition: bookEdition){
     return this.http.post('http://localhost:3000/api/editions', bookEdition, {responseType: 'text'});
   }
-
-  register(user: user){
-    return this.http.post('http://localhost:3000/api/reg', user, {responseType: 'text'});
-  }
-
-  login(user: user){
-    return this.http.post('http://localhost:3000/api/login', user, {responseType: 'text'});
-  }
 }
 

@@ -5,11 +5,23 @@ const model = mongoose.model;
 
 const schema = new Schema(
   {
-    username: String,
-    password: String,
+    username: {
+      type: String,
+      require: true
+    },
+    password: {
+      type: String,
+      require: true,
+      select: false
+    },
     email: {
       type: String,
       unique: true,
+      require: true
+    },
+    role: {
+      type: String,
+      default: 'user'
     }    
   }
 )
