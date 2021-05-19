@@ -14,9 +14,13 @@ export class AuthService {
   constructor(private http: HttpClient) {
    }
 
-   loggedIn() {
+  loggedIn() {
     if (localStorage.getItem('token')) return true;
     return false;
+  }
+
+  isAdmin() {
+    return this.currentUser?.role === 'admin';
   }
 
   register(user: User){

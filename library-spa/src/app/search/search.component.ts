@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BooksService } from '../services/books.service'
 import Book from '../models/book'
 import Genre from '../models/genre'
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -13,12 +13,19 @@ export class SearchComponent implements OnInit {
 
   books: Array<Book> = [];
   genres: Array<Genre> = [];
+  searchString = '';
 
-  constructor(private booksService: BooksService, private activeRoute: ActivatedRoute) { }
+  constructor(
+    private booksService: BooksService, 
+    private activeRoute: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.activeRoute.queryParams.subscribe(
-      (params) => this.getBooks(params)
+      (params) => {
+        this.searchString = params['search'];
+        this.getBooks(params)
+      }
     );
     this.getGenres()
   }

@@ -16,14 +16,18 @@ router.use(express.json());
 
 router.get('/api/books', async (req, res) => {
   log(req);
-  let genre = req.query.genre
+  let genre = req.query.genre;
+  let searchString = req.query.search ?? '';
+
   let books;
 
   if (!genre) {
-    books = await bookModel.find();
+    books = await bookModel.find({ name: { $regex: searchString, $options: "i" } });
   } else {
-    books = await bookModel.find({ genres: new ObjectId(genre) });
+    books = await bookModel.find({ genres: new ObjectId(genre), name: { $regex: searchString, $options: "i" } });
   }
+
+
 
   res.json(books);
 });

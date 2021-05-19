@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { AuthService } from './../services/auth.service';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BooksService } from '.././services/books.service';
 import { MatDialog } from '@angular/material/dialog';
 import user from 'src/app/models/user';
@@ -14,10 +14,11 @@ import { ServerErrorDialogComponent } from '../dialogs/server-error-dialog/serve
 })
 export class RegComponent implements OnInit {
 
-  RegForm = new FormGroup({
+  registrationForm = new FormGroup({
     username: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required),
+    confirmPassword: new FormControl(''),
   })
 
   hide = true;
@@ -32,7 +33,15 @@ export class RegComponent implements OnInit {
   }
 
   userRegisterClick(): void {
-    let user = this.RegForm.value as user;
+    let user = this.registrationForm.value as user;
+
+    if (this.registrationForm.controls.password.value != 
+      this.registrationForm.controls.confirmPassword.value) {
+        this.registrationForm.controls.password.setValue("");
+        this.registrationForm.controls.confirmPassword.setValue("");
+        return;
+      }
+
     this.authService.register(user).subscribe(
       (res) => {
         this.authService.currentUser = res.user;

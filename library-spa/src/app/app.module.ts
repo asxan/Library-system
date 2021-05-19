@@ -1,3 +1,4 @@
+import { AdminGuard } from './helpers/admin.guard';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -44,6 +45,7 @@ const appRoute: Routes = [
   {
     path: 'admintool',
     component: AdminPageComponent,
+    canActivate: [AuthGuard, AdminGuard],
     children: [
       {
         path: 'add-author-form',

@@ -1,11 +1,11 @@
-<form [formGroup]="RegForm" class="p-3 border rounded m-auto col-12 col-lg-6 bg-white" (submit)="userRegisterClick()">
+<form [formGroup]="registrationForm" class="p-3 border rounded m-auto col-12 col-lg-6 bg-white" (submit)="userRegisterClick()">
   <h1 mat-dialog-title>Registration</h1>
 
   <div class="form-group mb-3">
     <mat-form-field class="d-block" appearance="fill">
       <mat-label>Username</mat-label>
-      <input matInput placeholder="Your name" formControlName="username" required>
-      <mat-error *ngIf="RegForm.controls.username.invalid">Username is not set or has wrong format</mat-error>
+      <input matInput placeholder="Your name" formControlName="username" required [class.is-valid]="registrationForm.controls.username.valid">
+      <mat-error *ngIf="registrationForm.controls.username.invalid">Username is not set or has wrong format</mat-error>
     </mat-form-field>
   </div>
 
@@ -13,7 +13,7 @@
     <mat-form-field class="d-block" appearance="fill">
       <mat-label>Enter your email</mat-label>
       <input matInput placeholder="pat@example.com" formControlName="email" required>
-      <mat-error *ngIf="RegForm.controls.email.invalid">Email is not set or has wrong format</mat-error>
+      <mat-error *ngIf="registrationForm.controls.email.invalid">Email is not set or has wrong format</mat-error>
     </mat-form-field>
   </div>
 
@@ -21,11 +21,22 @@
     <mat-form-field class="d-block" appearance="fill">
       <mat-label>Enter your password</mat-label>
       <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
-      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+      <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
         [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
     </mat-form-field>
   </div>
 
-  <button class="btn btn-success" [disabled]="RegForm.invalid" type="submit">Register</button>
+  <div class="form-group mb-3">
+    <mat-form-field class="d-block" appearance="fill">
+      <mat-label>Confirm password</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" formControlName="confirmPassword">
+      <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <button class="btn btn-success" [disabled]="registrationForm.invalid" type="submit">Register</button>
