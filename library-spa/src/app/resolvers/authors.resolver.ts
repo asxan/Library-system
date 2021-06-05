@@ -1,5 +1,7 @@
 import { ServerErrorDialogComponent } from './../components/dialogs/server-error-dialog/server-error-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { catchError } from 'rxjs/operators';
+import { BooksService } from './../services/books.service';
 import { Injectable } from '@angular/core';
 import {
   Router, Resolve,
@@ -7,19 +9,17 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { BooksService } from '../services/books.service';
-import { catchError } from 'rxjs/operators'
-import Genre from '../models/genre';
+import Author from '../models/author';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GenreResolver implements Resolve<Genre[]> {
+export class AuthorsResolver implements Resolve<Author[]> {
 
   constructor(private booksService: BooksService, private dialog: MatDialog, private router: Router) { }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Genre[]> {
-    return this.booksService.getGenres().pipe(
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Author[]> {
+    return this.booksService.getAuthors().pipe(
       catchError(
         error => {
           this.dialog.open(ServerErrorDialogComponent, { data: 'Problem retrieving data' });
@@ -27,6 +27,6 @@ export class GenreResolver implements Resolve<Genre[]> {
           return of([]);
         }
       )
-    );
+    )
   }
 }

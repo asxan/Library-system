@@ -8,6 +8,8 @@ import CreateOrderModel from '../../models/createOrder';
 import { BooksService } from '../../services/books.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ServerErrorDialogComponent } from '../dialogs/server-error-dialog/server-error-dialog.component';
+import Genre from 'src/app/models/genre';
+import Author from 'src/app/models/author';
 
 @Component({
   selector: 'app-book-page',
@@ -16,7 +18,9 @@ import { ServerErrorDialogComponent } from '../dialogs/server-error-dialog/serve
 })
 export class BookPageComponent implements OnInit {
   book:  Book | undefined;
-  authors = "";
+  authors: Author[] = [];
+  genres: Genre[] = [];
+
   constructor(
     private bookService: BooksService, 
     private orderService: OrdersService,
@@ -26,20 +30,28 @@ export class BookPageComponent implements OnInit {
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
+
     this.route.params.subscribe(
       (param) => {
         this.bookService.getBook(param.id).subscribe(
           (res) => {
             this.book = res
-            this.authors = this.book.authors.map( a=> a.pseudonym).join(', ');
+            this.authors = this.book.authors
+            this.route.data.subscribe(
+              data => {
+                this.genres = data.genres.filter((g:Genre)  => res.genres.includes(g._id ?? ""))
+              }
+            )
           },
           (err) => this.router.navigate(['search'])
-        );        
+        );
       },
     );
   }
 
   order(editionId: string | undefined){
+    console.log(editionId)
+    console.log(!this.auth.loggedIn())
     if (!editionId || !this.auth.loggedIn()) return;
     if(!this.book) return
 

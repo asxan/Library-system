@@ -14,7 +14,7 @@ let schema = new Schema(
     genres: [{type: ObjectId}],
     booksEditions: [
       {
-        _id: ObjectId,
+        _id: {type: ObjectId, default: new ObjectId()},
         bookId: ObjectId,
         pablishedYear: Number,
         language: String,

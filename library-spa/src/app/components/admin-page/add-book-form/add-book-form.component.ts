@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import Author from '../../../models/author';
 import Genre from '../../../models/genre';
@@ -27,26 +28,13 @@ export class AddBookFormComponent implements OnInit {
   genres: Array<Genre> = [];
 
 
-  constructor(private booksService: BooksService, public dialog: MatDialog) { }
+  constructor(private booksService: BooksService, public dialog: MatDialog, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.booksService.getAuthors().subscribe(
-      (data) => {
-        this.authors = data;
-      },
-      (error) => {
-        console.log("Error: ", error);
-      }
-    );
-
-    this.booksService.getGenres().subscribe(
-      (data) => {
-        this.genres = data;
-      },
-      (error) => {
-        console.log("Error: ", error);
-      }
-    );
+    this.route.data.subscribe((data) => {
+      this.genres = data.genres;
+      this.authors = data.authors
+    })
   }
 
   add(): void {

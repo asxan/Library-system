@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import booksRouter from './routers/booksRouters.js'
 import usersRouter from './routers/usersRouters.js'
 import orderRouter from './routers/orderRouters.js'
+import statsRouter from './routers/statsRouter.js'
 import cors from 'cors'
 
 const PORT = process.env.PORT || 3000
@@ -14,6 +15,7 @@ app.use(cors());
 app.use(booksRouter);
 app.use(usersRouter);
 app.use(orderRouter);
+app.use(statsRouter);
 
 async function start() {
   try {

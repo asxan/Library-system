@@ -8,11 +8,11 @@
         </div>
         <div class="col">
             <div class="font-weight-bold">Authors:</div>
-            <div>{{authors}}</div>
+            <div *ngFor="let author of authors"><a [routerLink]="['/search/']"
+                [queryParams]="{search: author.pseudonym}">{{author.pseudonym}}</a></div>
             <div class="font-weight-bold">Genres:</div>
-            <div *ngFor="let genres of book?.genres">
-                {{genres}}
-            </div>
+            <a *ngFor="let genre of genres" [routerLink]="['/search', ]"
+                [queryParams]="{genre: genre._id}">{{genre.name}}, </a>
             <div class="font-weight-bold">Year:
                 {{book?.publicationYear}}</div>
             <i class="bi bi-star-fill"></i>

@@ -1,14 +1,14 @@
-<div class="row border pl-0 rounded w-100">
+<div class="row mb-2 bg-white shadow-sm">
   <div class="col-2 p-0">
-    <img *ngIf="book?.photo" src="{{book?.photo}}" class="img-thumbnail w-100" alt="">
-    <img *ngIf="!book?.photo" src="../../assets/book_placeholder.png" class="img-thumbnail" alt="">
+    <img *ngIf="book?.photo" src="{{book?.photo}}" class="w-100" alt="">
+    <img *ngIf="!book?.photo" src="../../assets/book_placeholder.png" class="w-100" alt="">
   </div>
-  <div class="col">
-    <div class="h5 font-weight-bold m-0" innerHTML="{{book?.name | textHightlight : searchString}}"></div>    
-    <div class="" innerHTML="{{authorsString | textHightlight : searchString}}"></div>
-    <div class="text-secondary small">Publishing house: {{book?.publishingHouse}} Publication year:
+  <div class="col d-flex align-items-start flex-column p-0">
+    <div class="h5 font-weight-bold m-0 pl-2" innerHTML="{{book?.name | textHightlight : searchString}}"></div>    
+    <div class="pl-2" innerHTML="{{authorsString | textHightlight : searchString}}"></div>
+    <div class="text-secondary small pl-2">Publishing house: {{book?.publishingHouse}} Publication year:
       {{book?.publicationYear}}</div>
-    <div class="small" innerHTML="{{book?.description | textHightlight : searchString}}">Description:</div><br>
-    <button mat-raised-button color="primary" [routerLink]="['/search/', book?._id]"  >Details</button>
+    <div class="small flex-fill pl-2" innerHTML="{{book?.description | textHightlight : searchString}}">Description:</div><br>
+    <button mat-raised-button color="grean" class="bg-success mb-0 text-white align-self-end rounded-0 m-0" [routerLink]="['/search/', book?._id]"  >Details</button>
   </div>
 </div>

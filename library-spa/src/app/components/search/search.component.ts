@@ -27,24 +27,17 @@ export class SearchComponent implements OnInit {
         this.getBooks(params)
       }
     );
-    this.getGenres()
+    this.activeRoute.data.subscribe(
+      data => {
+        this.genres = data.genres
+      }
+    )
   }
 
   getBooks(params?: any) {
     this.booksService.getBooks(params).subscribe(
       (data) => {
         this.books = data;
-      },
-      (error) => {
-        console.log("Error: ", error);
-      }
-    );
-  }
-
-  getGenres() {
-    this.booksService.getGenres().subscribe(
-      (data) => {
-        this.genres = data;
       },
       (error) => {
         console.log("Error: ", error);

@@ -1,3 +1,5 @@
+import { AuthorsResolver } from './resolvers/authors.resolver';
+import { GenreResolver } from './resolvers/genre.resolver';
 import { AdminGuard } from './helpers/admin.guard';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -20,6 +22,7 @@ import { AuthorAddFormComponent } from './components/admin-page/author-add-form/
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ServerErrorDialogComponent } from './components/dialogs/server-error-dialog/server-error-dialog.component';
+import { ServerSuccessDialogComponent } from './components/dialogs/server-success-dialog/server-success-dialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminPageComponent } from './components/admin-page/admin-page.component';
 import { AddBookFormComponent } from './components/admin-page/add-book-form/add-book-form.component';
@@ -39,8 +42,15 @@ import { OrdersControlComponent } from './components/admin-page/orders-control/o
 
 const appRoute: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'search', component: SearchComponent },
-  { path: 'search/:id', component: BookPageComponent },
+  { 
+    path: 'search',
+    component: SearchComponent,
+    resolve: {genres: GenreResolver} },
+  { 
+    path: 'search/:id', 
+    component: BookPageComponent,
+    resolve: {genres: GenreResolver}
+  },
   { path: 'registration', component: RegComponent },
   { path: 'login', component: LoginComponent },
   { path: 'user', component: UserPageComponent, canActivate: [AuthGuard] },
@@ -55,7 +65,8 @@ const appRoute: Routes = [
       },
       {
         path: 'add-book-form',
-        component: AddBookFormComponent
+        component: AddBookFormComponent,
+        resolve: { genres: GenreResolver, authors: AuthorsResolver }
       },
       {
         path: 'add-book-editions-form',
@@ -79,6 +90,7 @@ const appRoute: Routes = [
     BookItemComponent,
     AuthorAddFormComponent,
     ServerErrorDialogComponent,
+    ServerSuccessDialogComponent,
     AdminPageComponent,
     AddBookFormComponent,
     AddBookEditionsFormComponent,

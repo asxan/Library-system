@@ -21,15 +21,23 @@ router.get('/api/books', async (req, res) => {
 
   let books;
 
+  let query = {
+    $and: [
+      {
+        $or: [
+          { name: { $regex: searchString, $options: "i" } },
+          { description: { $regex: searchString, $options: "i" } },
+          { 'authors.pseudonym': { $regex: searchString, $options: "i" } }]
+      }
+    ]
+  }
+
+  
   if (!genre) {
-    books = await BookModel.find({ name: { $regex: searchString, $options: "i" } });
+    books = await BookModel.find(query);
   } else {
-    books = await BookModel.find({
-      genres: new ObjectId(genre),
-      name: { $regex: searchString, $options: "i" },
-      description: { $regex: searchString, $options: "i" },
-      "authors.pseudonym": { $regex: searchString, $options: "i" },
-    });
+    query.$and.push({ $or: [{ genres: new ObjectId(genre) }] })
+    books = await BookModel.find(query);
   }
 
   res.json(books);
@@ -125,6 +133,7 @@ router.post('/api/editions', async (req, res) => {
 
   book.booksEditions.push(bookEdition);
   await book.save();
+  res.status(200).json()
 })
 
 export default router

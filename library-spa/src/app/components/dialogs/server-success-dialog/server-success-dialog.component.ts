@@ -1,6 +1,5 @@
-import { Component, Inject } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-server-success-dialog',
@@ -9,9 +8,13 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
     './server-success-dialog.component.css'
   ]
 })
-export class ServerSuccessDialogComponent{
+export class ServerSuccessDialogComponent  implements OnInit{
 
-  constructor( public dialogRef: MatDialogRef<ServerSuccessDialogComponent>,
+  constructor( 
+    public dialogRef: MatDialogRef<ServerSuccessDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string) { }
+
+  ngOnInit(): void {
+  }
 
 }
