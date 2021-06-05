@@ -123,7 +123,7 @@ router.put('/api/order/cancel/:id', auth.verify, async (req, res) => {
     return;
   }
 
-  if (order.user != req.user._id && req.user.role != 'admin') {
+  if (String(order.user) != String(req.user._id) && req.user.role != 'admin') {
     res.sendStatus(403);
     return;
   }

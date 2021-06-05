@@ -1,4 +1,4 @@
-<div class="p-0 rounded m-auto col-12 col-lg-9 col-xl-7 bg-light">
+<div class="p-0 rounded m-auto col-12 col-lg-10 col-xl-10 bg-light">
   <form class="d-flex m-0 mb-2 p-0 font-smaller border-bottom">
     <div class="input-group h-100">
       <span class="input-group-text rounded-0 h-100" id="basic-addon1">
@@ -36,8 +36,8 @@
       </ul>
     </div>
     <div class="col-12 col-lg-8">
-      <div class="text-right pr-3 text-secondary">Found: {{books.length}}</div>
-      <div *ngFor='let book of books'>
+      <div class="text-right text-secondary">Found: {{books.length}}</div>
+      <div *ngFor='let book of books' class="m-0 p-0">
         <app-book-item [book]='book' [searchString]="searchString"></app-book-item>
       </div>
     </div>
