@@ -2,17 +2,17 @@
   <div class="h1 m-auto">
     Welcome!
   </div>
-  <div class="col-12 col-lg-3 col-xl-2 d-block m-auto p-2">
+  <div class="col-12 col-lg-4 col-xl-4 d-block m-auto p-2">
     <button class="btn btn-success btn-block rounded-0 p-3" [routerLink]="['/search']" routerLinkActive="router-link-active" >
       <span class="h4 font-weight-light">Get your books</span><span class="h3"><mat-icon class="align-middle">arrow_forward</mat-icon></span></button>
   </div> 
 </div>
 
 
-<div class="m-auto row bg-light align-items-start justify-content-center aling-start mt-2 shadow col-12 col-lg-10 col-xl-8">
+<div class="m-auto row bg-light align-items-start justify-content-center aling-start mt-2 shadow col-12 col-lg-10 col-xl-10">
   <div>
   </div>
-  <div class="col-12 col-lg-7 bg-light">
+  <div class="col-12 col-lg-8 bg-light">
     <div class="h4 m-2">Top books</div>
     <app-book-item *ngFor="let book of topbooks" [book]="book" class=""></app-book-item>
     
