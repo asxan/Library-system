@@ -1,0 +1,49 @@
+<form [formGroup]="BookForm" class="p-3 border rounded m-auto" (ngSubmit)="add()">
+    <h1 mat-dialog-title>Add book form</h1>
+
+    <div class="form-group mb-3">
+        <label for="basic-url" class="form-label">Book name</label>
+        <input type="text" class="form-control" placeholder="Name" formControlName="name">
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="basic-url" class="form-label">Publishing House</label>
+        <input type="text" class="form-control" placeholder="Publishing House" formControlName="publishingHouse">
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="basic-url" class="form-label">Publication Year</label>
+        <input type="number" class="form-control" placeholder="Publication Year" formControlName="publicationYear">
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="basic-url" class="form-label">Author</label>
+        <mat-form-field class="d-block" appearance="fill">
+            <mat-label>Authors</mat-label>
+            <mat-select formControlName="authors" multiple class="h-100">
+                <mat-option *ngFor="let author of authors" [value]="author">{{author.fullName}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="basic-url" class="form-label">Genres</label>
+        <mat-form-field class="d-block" appearance="fill">
+            <mat-label>Genres</mat-label>
+            <mat-select formControlName="genres" multiple class="h-100">
+                <mat-option *ngFor="let genre of genres" [value]="genre._id">{{genre.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="basic-url" class="form-label">Description</label>
+        <textarea class="form-control" aria-label="With textarea" formControlName="description"></textarea>
+    </div>
+
+
+    <button type="submit" [disabled]="BookForm.invalid" class="btn btn-success">
+        Add
+    </button>
+</form>

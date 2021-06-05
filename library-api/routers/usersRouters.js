@@ -2,8 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import User from '../models/user.js';
 import bcrypt, { hash } from 'bcrypt';
-import jwt from 'jsonwebtoken'
-import auth from '../middlewares/auth.js'
+import jwt from 'jsonwebtoken';
+import auth from '../middlewares/auth.js';
 
 const router = express.Router();
 const ObjectId = mongoose.Types.ObjectId;
@@ -63,16 +63,8 @@ router.post('/api/login', (req, res) => {
 
 router.get('/api/user', auth.verify, (req, res) => {
   log(req);
-
-  User.findOne({ _id: new ObjectId(req.userId) })
-    .then(user => {
-
-      res.status(200).json(user);
-    })
-    .catch(error => {
-      console.log(error)
-      res.status(401)
-    })
+      res.status(200).json(req.user);
+    
 })
 
 function generateToken(payload) {

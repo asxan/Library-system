@@ -1,0 +1,39 @@
+<div class="p-3 border rounded m-auto col-12 col-lg-10 bg-white">
+  <div class="row">
+    <div class="col-12 col-lg-3">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
+        class="w-100" alt="">
+    </div>
+    <div class="col">
+      <div class="h4">{{ user?.username}}</div>
+      <div class="">{{ user?.email}}</div>
+    </div>
+  </div>
+  
+  <div class="h5 mt-3"> Orders: </div>
+
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Book</th>
+      <th scope="col">Ordered</th>
+      <th scope="col">Return</th>
+      <th scope="col">Status</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let order of orders.reverse(); index as i;" [class.bg-light]="order.status != 'new'">
+      <th scope="row">{{i+1}}</th>
+      <td>{{order.book?.name}}</td>
+      <td>{{order.orderDate}}</td>
+      <td>{{order.endDate}}</td>
+      <td>{{order.status}}</td>
+      <td>
+        <button *ngIf="order.status == OrderStatus.NEW" class="btn btn-warning" (click)="cancelOrder(order._id)">Cancel</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>

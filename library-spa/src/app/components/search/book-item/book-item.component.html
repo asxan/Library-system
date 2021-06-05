@@ -1,0 +1,14 @@
+<div class="row border pl-0 rounded w-100">
+  <div class="col-2 p-0">
+    <img *ngIf="book?.photo" src="{{book?.photo}}" class="img-thumbnail w-100" alt="">
+    <img *ngIf="!book?.photo" src="../../assets/book_placeholder.png" class="img-thumbnail" alt="">
+  </div>
+  <div class="col">
+    <div class="h5 font-weight-bold m-0" innerHTML="{{book?.name | textHightlight : searchString}}"></div>    
+    <div class="" innerHTML="{{authorsString | textHightlight : searchString}}"></div>
+    <div class="text-secondary small">Publishing house: {{book?.publishingHouse}} Publication year:
+      {{book?.publicationYear}}</div>
+    <div class="small" innerHTML="{{book?.description | textHightlight : searchString}}">Description:</div><br>
+    <button mat-raised-button color="primary" [routerLink]="['/search/', book?._id]"  >Details</button>
+  </div>
+</div>

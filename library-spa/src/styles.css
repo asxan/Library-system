@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
-
+@import url('@angular/material/prebuilt-themes/deeppurple-amber.css');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 input, a, button {
     outline: none !important;
 }
@@ -14,4 +14,5 @@ body{
     background-repeat: no-repeat;
     background-position:top;
     background-size: cover;
+    font-family: 'Roboto', sans-serif;
 }

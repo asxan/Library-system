@@ -1,0 +1,25 @@
+<div class="row col-11 bg-white m-auto rounded p-2">
+    <div class="col-12 col-lg-4">
+        <ul class="list-group">
+            <li class="list-group-item p-2 bg-light" >
+                Tools:
+            </li> 
+            <li class="list-group-item p-0 " >
+                <a [routerLink]="['add-author-form']" routerLinkActive="router-link-active" class="p-2 w-100 d-block" >Add Author</a>
+            </li> 
+            <li class="list-group-item p-0 " >
+                <a [routerLink]="['add-book-form']" routerLinkActive="router-link-active" class="p-2 w-100 d-block" >Add Book</a>
+            </li> 
+            <li class="list-group-item p-0 " >
+                <a [routerLink]="['add-book-editions-form']" routerLinkActive="router-link-active" class="p-2 w-100 d-block" >Add Book Edition</a>
+            </li>
+            <li class="list-group-item p-0 " >
+                <a [routerLink]="['orders-control']" routerLinkActive="router-link-active" class="p-2 w-100 d-block" >Orders</a>
+            </li>
+
+        </ul>
+    </div>
+    <div class="col">
+        <router-outlet></router-outlet>
+    </div>
+</div>

@@ -1,8 +1,8 @@
 import express from 'express';
-import bookModel from '../models/book.js';
+import BookModel from '../models/book.js';
 import mongoose from 'mongoose';
-import genreModel from '../models/genre.js';
-import authorModel from '../models/author.js';
+import GenreModel from '../models/genre.js';
+import AuthorModel from '../models/author.js';
 
 const router = express.Router();
 const ObjectId = mongoose.Types.ObjectId;
@@ -22,12 +22,15 @@ router.get('/api/books', async (req, res) => {
   let books;
 
   if (!genre) {
-    books = await bookModel.find({ name: { $regex: searchString, $options: "i" } });
+    books = await BookModel.find({ name: { $regex: searchString, $options: "i" } });
   } else {
-    books = await bookModel.find({ genres: new ObjectId(genre), name: { $regex: searchString, $options: "i" } });
+    books = await BookModel.find({
+      genres: new ObjectId(genre),
+      name: { $regex: searchString, $options: "i" },
+      description: { $regex: searchString, $options: "i" },
+      "authors.pseudonym": { $regex: searchString, $options: "i" },
+    });
   }
-
-
 
   res.json(books);
 });
@@ -39,7 +42,7 @@ router.get('/api/books/:id', async (req, res) => {
     res.sendStatus(404);
     return
   }
-  let book = await bookModel.findById(new ObjectId(id));
+  let book = await BookModel.findById(new ObjectId(id));
 
   if (!book) {
     res.sendStatus(404);
@@ -51,26 +54,26 @@ router.get('/api/books/:id', async (req, res) => {
 
 router.get('/api/genres', async (req, res) => {
   log(req);
-  let genres = await genreModel.find();
+  let genres = await GenreModel.find();
   res.json(genres);
 });
 
 router.get('/api/authors', async (req, res) => {
   log(req);
-  let authors = await authorModel.find();
+  let authors = await AuthorModel.find();
   res.json(authors);
 });
 
 router.post('/api/authors', async (req, res) => {
   log(req);
-  let authors = new authorModel(req.body);
+  let authors = new AuthorModel(req.body);
 
   if (!authors.fullName) {
     res.status(400).send("Validation error");
     return
   }
 
-  authorModel.create(authors).then(
+  AuthorModel.create(authors).then(
     () => res.sendStatus(200)
   ).catch(
     (error) => {
@@ -79,23 +82,21 @@ router.post('/api/authors', async (req, res) => {
     }
   );
 });
-
-
 router.post('/api/books', async (req, res) => {
   log(req);
-  let book = new bookModel(req.body);
+  let book = new BookModel(req.body);
   console.log(book);
-  if (!book.name && 
-     !book.publishingHouse &&
-     !book.publicationYear &&
-     !book.authors &&
-     !book.genres &&
-     !book.description) {
+  if (!book.name &&
+    !book.publishingHouse &&
+    !book.publicationYear &&
+    !book.authors &&
+    !book.genres &&
+    !book.description) {
     res.status(400).send("Validation error");
     return
   }
 
-  bookModel.create(book).then(
+  BookModel.create(book).then(
     () => res.sendStatus(200)
   ).catch(
     (error) => {
@@ -111,16 +112,16 @@ router.post('/api/editions', async (req, res) => {
   console.log(bookEdition);
 
   if (!bookEdition.bookId &&
-     !bookEdition.language &&
-     !bookEdition.cover &&
-     !bookEdition.pablishedYear &&
-     !bookEdition.printedType &&
-     !bookEdition.pages) {
+    !bookEdition.language &&
+    !bookEdition.cover &&
+    !bookEdition.pablishedYear &&
+    !bookEdition.printedType &&
+    !bookEdition.pages) {
     res.status(400).send("Validation error");
     return
   }
 
-  var book = await bookModel.findById(new ObjectId(bookEdition.bookId))
+  var book = await BookModel.findById(new ObjectId(bookEdition.bookId))
 
   book.booksEditions.push(bookEdition);
   await book.save();

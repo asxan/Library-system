@@ -1,0 +1,31 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Photo</th>
+      <th scope="col">Book</th>
+      <th scope="col">User</th>
+      <th scope="col">Ordered</th>
+      <th scope="col">Return</th>
+      <th scope="col">Status</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let order of orders.reverse(); index as i;" [class.bg-light]="order.status != 'new'">
+      <th scope="row">{{i+1}}</th>
+      <td><img src="{{order.book?.photo}}" alt="" height="60px"></td>
+      <td><a [routerLink]="['/search/' + order.book?._id ]" routerLinkActive="router-link-active">{{order.book?.name}}({{order.book?.publicationYear}})</a></td>
+      <td><a [routerLink]="['/user/' + order.user]"  routerLinkActive="router-link-active" >{{order.user}}</a></td>
+      <td>{{order.orderDate}}</td>
+      <td>{{order.endDate}}</td>
+      <td>{{order.status}}</td>
+      <td>
+        <button *ngIf="order.status == OrderStatus.NEW || order.status == OrderStatus.READY" class="btn btn-warning m-1" (click)="cancelOrder(order._id)">Cancel</button>
+        <button *ngIf="order.status == OrderStatus.NEW" class="btn btn-primary m-1" (click)="approveOrder(order._id)">Approve</button>
+        <button *ngIf="order.status == OrderStatus.READY" class="btn btn-primary m-1" (click)="giveoutOrder(order._id)">GiveOut</button>
+        <button *ngIf="order.status == OrderStatus.WAITING_FOR_RETURN" class="btn btn-success m-1" (click)="completeOrder(order._id)">Complete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

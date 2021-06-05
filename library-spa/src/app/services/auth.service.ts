@@ -12,7 +12,7 @@ export class AuthService {
   currentUser: User | null = null;
 
   constructor(private http: HttpClient) {
-   }
+  }
 
   loggedIn() {
     if (localStorage.getItem('token')) return true;
@@ -23,11 +23,11 @@ export class AuthService {
     return this.currentUser?.role === 'admin';
   }
 
-  register(user: User){
-    return this.http.post<any>('http://localhost:3000/api/reg', user, {responseType: 'json'});
+  register(user: User) {
+    return this.http.post<any>('http://localhost:3000/api/reg', user, { responseType: 'json' });
   }
 
-  login(user: User){
+  login(user: User) {
     return this.http.post<any>('http://localhost:3000/api/login', user)
   }
 
@@ -36,24 +36,7 @@ export class AuthService {
     localStorage.clear();
   }
 
-  getMe() {
-    return new Observable<User>(
-      observer => {
-        if (this.currentUser){
-          observer.next(this.currentUser)
-        }
-        else {
-          this.http.get<User>(`http://localhost:3000/api/user/`).subscribe(
-          user => {
-            this.currentUser = user,
-            observer.next(user)
-          },
-           error => {
-             observer.error(error)
-           }
-        )
-        }        
-      }
-    );
+  async getMe() {
+    this.currentUser = await this.http.get<User>(`http://localhost:3000/api/user/`).toPromise()
   }
 }

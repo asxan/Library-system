@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  isLoading = true;
   constructor(private authService: AuthService) {
-    authService.getMe().subscribe(
-      ()=>{}
-    );
   }  
+  async ngOnInit(): Promise<void> {
+    await this.authService.getMe()
+      .finally(()=>this.isLoading = false);
+  
+  }
 }

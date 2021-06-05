@@ -1,0 +1,37 @@
+<div class="container bg-light rounded border">
+    <div class="h2 m-2 font-weight-bold">{{book?.name}}<br></div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <img *ngIf="book?.photo" src="{{book?.photo}}" class="img-thumbnail" alt="">
+            <img *ngIf="!book?.photo" src="../../assets/book_placeholder.png" class="img-thumbnail" alt="">
+        </div>
+        <div class="col">
+            <div class="font-weight-bold">Authors:</div>
+            <div>{{authors}}</div>
+            <div class="font-weight-bold">Genres:</div>
+            <div *ngFor="let genres of book?.genres">
+                {{genres}}
+            </div>
+            <div class="font-weight-bold">Year:
+                {{book?.publicationYear}}</div>
+            <i class="bi bi-star-fill"></i>
+            <div class="font-weight-bold">Description:</div>
+            <div>
+                {{book?.description}}
+            </div>
+        </div>
+    </div>
+    <div class="h5 mt-3"> Available books: </div>
+    <ul>
+        <li *ngFor="let edition of book?.booksEditions" class="row">
+            <div class="col">Year: {{edition.pablishedYear}}</div>
+            <div class="col">Language: {{edition.language}}</div>
+            <div class="col">Pages: {{edition.pages}}</div>
+            <div class="col">Printed Type: {{edition.printedType}}</div>
+            <div class="col p-1 text-right">
+                <button mat-raised-button color="primary" [disabled]="!edition.available" (click)="order(edition._id)">Take</button>
+            </div>
+        </li>
+    </ul>
+</div>
