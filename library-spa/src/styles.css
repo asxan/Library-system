@@ -12,7 +12,7 @@ input:focus, a:focus, button:focus {
 body{
     background-image: url('./assets/photo.jpg');
     background-repeat: no-repeat;
-    background-position:top;
+    background-position:center;
     background-size: cover;
     font-family: 'Roboto', sans-serif;
 }
