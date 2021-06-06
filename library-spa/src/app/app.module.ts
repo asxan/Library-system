@@ -40,46 +40,6 @@ import { ErrorInterceptor } from './helpers/http.interceptor';
 import { TextHightlightPipe } from './helpers/text-hightlight.pipe';
 import { OrdersControlComponent } from './components/admin-page/orders-control/orders-control.component';
 
-const appRoute: Routes = [
-  { path: '', component: HomeComponent },
-  { 
-    path: 'search',
-    component: SearchComponent,
-    resolve: {genres: GenreResolver} },
-  { 
-    path: 'search/:id', 
-    component: BookPageComponent,
-    resolve: {genres: GenreResolver}
-  },
-  { path: 'registration', component: RegComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'user', component: UserPageComponent, canActivate: [AuthGuard] },
-  {
-    path: 'admintool',
-    component: AdminPageComponent,
-    canActivate: [AuthGuard, AdminGuard],
-    children: [
-      {
-        path: 'add-author-form',
-        component: AuthorAddFormComponent
-      },
-      {
-        path: 'add-book-form',
-        component: AddBookFormComponent,
-        resolve: { genres: GenreResolver, authors: AuthorsResolver }
-      },
-      {
-        path: 'add-book-editions-form',
-        component: AddBookEditionsFormComponent
-      },
-      {
-        path: 'orders-control',
-        component: OrdersControlComponent
-      }
-    ]
-  },
-];
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -105,7 +65,6 @@ const appRoute: Routes = [
     BrowserAnimationsModule,
     FormsModule,
     AppRoutingModule,
-    RouterModule.forRoot(appRoute),
     HttpClientModule,
     MatButtonModule,
     ReactiveFormsModule,
