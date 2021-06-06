@@ -39,7 +39,9 @@ router.get('/api/stats/topbooks', async (req, res) => {
 
   console.log(stat)
   let books = await BookModel.find({ _id: stat.map(s => new ObjectId(s.book)) })
-  console.log(books)
+  books = books.sort((a,b) => 
+    stat.find(i => String(i.book) == String(b._id)).score - stat.find(i => String(i.book) == String(a._id)).score)
+  
   res.json(books)
 })
 
@@ -55,7 +57,6 @@ router.get('/api/stats/topauthors', async (req, res) => {
   let books = await BookModel.find({ _id: orders.map(s => new ObjectId(s.book)) })
 
   books.forEach(b => authorsIds.push(...b.authors.map(a => a._id)))
-
   console.log(authorsIds)
   let stat = [];
   for (let i = 0; i < authorsIds.length; i++) {
@@ -70,9 +71,11 @@ router.get('/api/stats/topauthors', async (req, res) => {
 
   stat = stat.sort((a, b) => b.score - a.score).slice(0, count > stat.length ? count - 1 : stat.length - 1)
 
-  console.log(stat)
   let authors = await AuthorModel.find({ _id: stat.map(s => new ObjectId(s.author)) })
-  console.log(authors)
+
+  console.log(stat)
+  authors = authors.sort((a,b) => 
+    stat.find(i => String(i.author) == String(b._id)).score - stat.find(i => String(i.author) == String(a._id)).score)
   res.json(authors)
 })
 
