@@ -55,7 +55,7 @@ export class BookPageComponent implements OnInit {
     if (!editionId || !this.auth.loggedIn()) return;
     if(!this.book) return
 
-    let order = new CreateOrderModel(this.book?._id, editionId, 5);
+    let order = new CreateOrderModel(this.book?._id, editionId, 30);
 
     this.orderService.order(order).subscribe(
       (res) => {

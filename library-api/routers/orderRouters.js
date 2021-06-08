@@ -19,9 +19,9 @@ router.post('/api/order/', auth.verify, async (req, res) => {
   log(req)
 
   let order = req.body;
-  order.orderDate = new Date().toLocaleDateString("en-US")
+  order.orderDate = new Date().toLocaleString("en-US")
   order.status = OrderStatus.NEW;
-  order.endDate = new Date(new Date() + order.days).toLocaleDateString("en-US");
+  order.endDate = new Date(Date.now() + (order.days * 24 * 3600 * 1000)).toLocaleString("en-US");
   order.user = req.user._id;
 
   let book = await BookModel.findById(new ObjectId(order.book));
