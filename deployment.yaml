@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: library-spa-prod-dep
+  labels:
+    service: library-spa-prod-dep
+    owner: asxan
+    platform: gke
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: library-spa-prod
+  template:
+    metadata:
+      labels:
+        app: library-spa-prod
+  spec:
+      containers:
+      - name: library-spa-prod
+        image: asxan/library-spa-prod:0.2
+        ports:
+          - name: library-port
+            containerPort: 80
+            protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 25
+          periodSeconds: 5
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "100m"
